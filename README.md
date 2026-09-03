@@ -2,7 +2,7 @@
 
 阅读3服务器版，不需要手机。
 
-> Fork 自 [hectorqin/reader](https://github.com/hectorqin/reader)，已合并社区 PR（#648 #653 #667 #668 #701）并持续维护。
+> Fork 自 [changshengyu/reader-dev](https://github.com/changshengyu/reader-dev) -> [hectorqin/reader](https://github.com/hectorqin/reader)，使用`v3.2.14-05250935`版本的`reader.jar`，放置在当前项目`bin/reader.jar`路径下。同时将Docker镜像中`java -jar bin/reader.jar`命令放在`/reader`路径下执行，即更换工作目录为`/reader`，让`logs`和`storage`目录统一在`/reader`目录下生成，方便 Railway 等仅支持单一 Volume 映射目录的在线服务。
 
 ## 功能
 
@@ -12,32 +12,31 @@
 
 ```bash
 # 标准版（推荐）
-docker pull changshengyu/reader:latest
+docker pull longhuan1999/reader:latest
 
 # Slim 版
-# docker pull changshengyu/reader:slim-latest
+# docker pull longhuan1999/reader:slim-latest
 
 # OpenJ9 版（启动快、省内存）
-# docker pull changshengyu/reader:openj9-latest
+# docker pull longhuan1999/reader:openj9-latest
 ```
 
 ```bash
 docker run -d \
   --name reader \
   -p 4396:8080 \
-  -v /home/reader/logs:/logs \
-  -v /home/reader/storage:/storage \
+  -v /home/reader:/reader \
   -e SPRING_PROFILES_ACTIVE=prod \
   -e READER_APP_SECURE=true \
   -e READER_APP_SECUREKEY=adminpwd \
   -e READER_APP_INVITECODE=registercode \
-  changshengyu/reader:latest
+  longhuan1999/reader:latest
 ```
 
 或使用 docker-compose：
 
 ```bash
-wget https://raw.githubusercontent.com/changshengyu/reader-dev/master/docker-compose.yaml
+wget https://raw.githubusercontent.com/longhuan1999/reader-dev/master/docker-compose.yaml
 docker-compose up -d
 ```
 
@@ -51,5 +50,6 @@ docker build -f Dockerfile.openj9 -t reader:openj9-latest .
 
 ## 感谢
 
+- [changshengyu/reader-dev](https://github.com/changshengyu/reader-dev)
 - [hectorqin/reader](https://github.com/hectorqin/reader)
 - [阅读3.0](https://github.com/gedoor/legado)

@@ -7,12 +7,14 @@ RUN \
     apk add --no-cache ca-certificates tini tzdata; \
     update-ca-certificates; \
     # Clean APK cache
-    rm -rf /var/cache/apk/*;
+    rm -rf /var/cache/apk/*; \
+    mkdir -p /reader /app/bin
 
 # 时区
 ENV TZ=Asia/Shanghai
 
 EXPOSE 8080
 ENTRYPOINT ["/sbin/tini", "--"]
-ADD ./reader.jar /app/bin/reader.jar
+ADD ./bin/reader.jar /app/bin/reader.jar
+WORKDIR /reader
 CMD ["java", "-jar", "/app/bin/reader.jar" ]

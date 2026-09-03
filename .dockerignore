@@ -41,6 +41,5 @@ out
 /src/main/resources/web
 /storage*
 /logs
-/bin
 /file-uploads
 node_modules

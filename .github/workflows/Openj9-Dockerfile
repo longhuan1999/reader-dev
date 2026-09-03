@@ -5,12 +5,15 @@ RUN \
     apt-get install -y ca-certificates tini tzdata; \
     update-ca-certificates; \
     # Clean apt cache
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* \
+    mkdir -p /reader /app/bin
 
 # 时区
 ENV TZ=Asia/Shanghai
 
+ADD ./bin/reader.jar /app/bin/reader.jar
+WORKDIR /reader
+
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/tini", "--"]
-ADD ./reader.jar /app/bin/reader.jar
 CMD ["java", "-jar", "/app/bin/reader.jar" ]
