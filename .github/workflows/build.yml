@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'Dockerfile.*'
 jobs:
   build:
     if: github.repository == 'longhuan1999/reader-dev'
